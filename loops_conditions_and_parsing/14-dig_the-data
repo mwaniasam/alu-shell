@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-# Check if the log file exists
+# parses an Apache log file and displays the IP and HTTP code for each visitor, along with the number of occurences.
 
-if [ ! -f apache-access.log ]; then
-  echo "Log file not found!"
-  exit 1
-fi
-
-# Parse, group, and sort the log data
-awk '{print $1, $9}' apache-access.log | sort | uniq -c | sort -nr | awk '{printf "%4d %s %s\n", $1, $2, $3}'
-
+awk '{print $1,$9}' apache-access.log | sort | uniq -c | sort -nr
