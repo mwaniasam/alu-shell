@@ -7,5 +7,5 @@ if [ ! -f apache-access.log ]; then
 fi
 
 # Parse, group, and sort the log data
-awk '{print $1, $9}' apache-access.log | sort | uniq -c | sort -nr | awk '{print $1, $2, $3}'
+awk '{print $1, $9}' apache-access.log | sort | uniq -c | sort -nr | awk '{printf "%4d %s %s\n", $1, $2, $3}'
 
