@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
-#i love you
-clean_up='rm /var/run/myscript.pid; exit $?'
+#create the file /var/run/myscript.pid containing its PID
+#Displays To infinity and beyond indefinitely
+#Displays I hate the kill command when receiving a SIGTERM signal
+#Displays Y u no love me?! when receiving a SIGINT signal
+#Deletes the file /var/run/myscript.pid and terminates itself when receiving a SIGINT or SIGTERM signal.
 
-echo $$ > "/var/run/myscript.pid"
+terminator(){
+  rm /var/run/myscript.pid
+  exit
+}
 
+echo "$$" > /var/run/myscript.pid
+
+while true
+do
+  echo "To infinity and beyond"
+  sleep 2
+  trap 'echo "Y u no love me?!"; terminator' SIGINT
+  trap 'echo "I hate the kill command"; terminator' SIGTERM
+done
